@@ -230,37 +230,44 @@
   <pre id="code-container"></pre>
 
   <script>
-    const code = `__global__ void pow_gpu(int N, float ALPHA,
-float *X, int INCX, float *Y, int INCY) {
-    int i = (blockIdx.x + blockIdx.y * gridDim.x) * blockDim.x + threadIdx.x;
-    if (i < N) {
-        Y[i * INCY] = pow(X[i * INCX], ALPHA);
-    }
-}`;
-    
-    const container = document.getElementById('code-container');
-    let index = 0;
-
-    function typeCode() {
-        if (index < code.length) {
-            let char = code[index];
-            // Highlight keywords and types
-            if (char.match(/__global__|void|int|float|if|return|pow|gridDim|blockDim|threadIdx|blockIdx/g)) {
-                container.innerHTML += `<span class="keyword">${char}</span>`;
-            } else if (char.match(/int|float/g)) {
-                container.innerHTML += `<span class="type">${char}</span>`;
-            } else if (char.match(/pow/g)) {
-                container.innerHTML += `<span class="function">${char}</span>`;
-            } else {
-                container.innerHTML += char; // Append the character
-            }
-            index++;
-            setTimeout(typeCode, 50); // Adjust speed here
-        }
-    }
-
-    typeCode(); // Start the typing effect
-</script>
+      const code = `__global__ void pow_gpu(int N, float ALPHA,
+  float *X, int INCX, float *Y, int INCY) {
+      int i = (blockIdx.x + blockIdx.y * gridDim.x) * blockDim.x + threadIdx.x;
+      if (i < N) {
+          Y[i * INCY] = pow(X[i * INCX], ALPHA);
+      }
+  }`;
+  
+      const keywords = /__global__|void|int|float|if|return|pow|gridDim|blockDim|threadIdx|blockIdx/g; // Regex for keywords
+      const types = /int|float/g; // Regex for types
+      const functions = /pow/g; // Regex for functions
+  
+      const container = document.getElementById('code-container');
+      let index = 0;
+  
+      function typeCode() {
+          if (index < code.length) {
+              let char = code[index];
+  
+              // Highlight keywords, types, and functions correctly
+              if (char.match(/[\n]/)) {
+                  container.innerHTML += '<br>'; // Handle new lines
+              } else if (char.match(/__global__|void|int|float|if|return|pow|gridDim|blockDim|threadIdx|blockIdx/g)) {
+                  container.innerHTML += `<span class="keyword">${char}</span>`;
+              } else if (char.match(/int|float/g)) {
+                  container.innerHTML += `<span class="type">${char}</span>`;
+              } else if (char.match(/pow/g)) {
+                  container.innerHTML += `<span class="function">${char}</span>`;
+              } else {
+                  container.innerHTML += char; // Append the character
+              }
+              index++;
+              setTimeout(typeCode, 50); // Adjust speed here
+          }
+      }
+  
+      typeCode(); // Start the typing effect
+  </script>
 
 
   <section class="section" id="BibTeX">
