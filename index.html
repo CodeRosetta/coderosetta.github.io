@@ -163,7 +163,7 @@
           </p>         
         </div>
         <div class="content has-text-justified">
-          <h3>Denoising Auto Encoding<</h3>
+          <h3>Denoising Auto Encoding</h3>
           <p>The decoder in CodeRosetta is untrained after pre-training, so Denoising Auto-Encoding (DAE) is used to train it for code translation. DAE involves corrupting input code with various noise types (e.g., token masking, shuffling) and training the model to reconstruct the original, enabling the decoder to learn target language syntax. Additionally, techniques like weighted token dropping (removing language-specific keywords) and language-specific token insertion (inserting tokens from other languages) help the model distinguish between programming languages, with adaptive noise ratios gradually increasing complexity during training.</p>          
         </div>
         <div class="content has-text-justified">
