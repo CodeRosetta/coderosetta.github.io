@@ -244,7 +244,7 @@ float *X, int INCX, float *Y, int INCY) {
       function typeCode() {
           if (index < code.length) {
               document.getElementById("output").textContent += code[index++];
-              setTimeout(typeCode, Math.random() * 100 + 50); // Random delay for typing effect
+              setTimeout(typeCode, Math.random() * 50 + 20); // Random delay for typing effect
           }
       }
 
