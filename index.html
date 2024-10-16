@@ -228,6 +228,31 @@
   </section>
 
 
+  <script>
+    const codeString = `__global__ void pow_gpu(int N, float ALPHA,
+float *X, int INCX, float *Y, int INCY) {
+int i = (blockIdx.x + blockIdx.y *
+gridDim.x) * blockDim.x + threadIdx.x;
+if (i < N) {
+    Y[i * INCY] = pow(X[i * INCX], ALPHA);
+}
+}`;
+    
+    let index = 0;
+    const codeDiv = document.getElementById('code');
+
+    function displayCode() {
+        if (index < codeString.length) {
+            codeDiv.innerHTML += codeString.charAt(index);
+            index++;
+            setTimeout(displayCode, 50); // Adjust speed by changing the timeout duration
+        }
+    }
+
+    displayCode();
+</script>
+
+
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
