@@ -229,28 +229,28 @@
 
   <div id="output"></div>
   <script>
-    const code = `\
+      const code = `
 <span class="keyword">__global__</span> <span class="keyword">void</span> pow_gpu(<span class="type">int</span> N, <span class="type">float</span> ALPHA,<br>
-<span class="type">float</span> *X, <span class="type">int</span> INCX, <span class="type">float</span> *Y, <span class="type">int</span> INCY) {<br>
-<span class="type">int</span> i = (blockIdx.x + blockIdx.y * gridDim.x) * blockDim.x + threadIdx.x;<br>
-<span class="keyword">if</span> (i &lt; N) {<br>
-    Y[i * INCY] = pow(X[i * INCX], ALPHA);<br>
-}<br>
+  <span class="type">float</span> *X, <span class="type">int</span> INCX, <span class="type">float</span> *Y, <span class="type">int</span> INCY) {<br>
+  <span class="type">int</span> i = (blockIdx.x + blockIdx.y * gridDim.x) * blockDim.x + threadIdx.x;<br>
+  <span class="keyword">if</span> (i &lt; N) {<br>
+      Y[i * INCY] = pow(X[i * INCX], ALPHA);<br>
+  }<br>
 }
 `.trim();
 
-    let index = 0;
+      let index = 0;
 
-    function typeCode() {
-        if (index < code.length) {
-            document.getElementById("output").innerHTML += code[index++];
-            // Reduced random delay for typing effect
-            setTimeout(typeCode, Math.random() * 50 + 20); // Faster typing speed
-        }
-    }
+      function typeCode() {
+          if (index < code.length) {
+              document.getElementById("output").innerHTML += code[index++];
+              // Reduced random delay for typing effect
+              setTimeout(typeCode, Math.random() * 50 + 20); // Faster typing speed
+          }
+      }
 
-    typeCode();
-</script>
+      typeCode();
+  </script>
 
 
   <section class="section" id="BibTeX">
