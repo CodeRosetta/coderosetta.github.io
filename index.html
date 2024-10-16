@@ -87,7 +87,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href=""
+                <a href="https://openreview.net/forum?id=V6hrg4O9gg"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -106,7 +106,7 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href=""
+                <a href="https://github.com/tehranixyz/CodeRosetta"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -115,7 +115,7 @@
                   </a>
               </span>
               <!-- Dataset Link. -->
-              <span class="link-block">
+              <!-- <span class="link-block">
                 <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
@@ -123,7 +123,7 @@
                   </span>
                   <span>Data</span>
                   </a>
-            </div>
+            </div> -->
 
           </div>
         </div>
@@ -169,6 +169,21 @@
   </div>
 </section>
 
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Pretraining and Training Objectives</h2>
+        <div class="content has-text-justified">
+          <h3>Mask Language Modeling</h3>
+          <p>Pre-training is essential for transformer models to understand programming languages, and Masked Language Modeling (MLM) is used to mask entire words in code, helping the model learn both syntactic and semantic patterns. This method, which masks full words like "int" in "int index," helps the model predict the missing tokens by understanding the context. Additionally, training the model on a combined dataset of C++ and the target language (CUDA or Fortran) enables cross-lingual learning, allowing the model to generalize and transfer knowledge across programming languages.</p>          
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
