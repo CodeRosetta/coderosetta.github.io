@@ -169,15 +169,15 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Denoising Auto Encoding</h2>
         <div class="content has-text-justified">
-          <h3>Mask Language Modeling</h3>
-          <p>Pre-training is essential for transformer models to understand programming languages, and Masked Language Modeling (MLM) is used to mask entire words in code, helping the model learn both syntactic and semantic patterns. This method, which masks full words like "int" in "int index," helps the model predict the missing tokens by understanding the context. Additionally, training the model on a combined dataset of C++ and the target language (CUDA or Fortran) enables cross-lingual learning, allowing the model to generalize and transfer knowledge across programming languages.</p>          
+          <h3>Denoising Auto Encoding<</h3>
+          <p>The decoder in CodeRosetta is untrained after pre-training, so Denoising Auto-Encoding (DAE) is used to train it for code translation. DAE involves corrupting input code with various noise types (e.g., token masking, shuffling) and training the model to reconstruct the original, enabling the decoder to learn target language syntax. Additionally, techniques like weighted token dropping (removing language-specific keywords) and language-specific token insertion (inserting tokens from other languages) help the model distinguish between programming languages, with adaptive noise ratios gradually increasing complexity during training.</p>          
         </div>
       </div>
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Backtranslation</h2>
+        <h2 class="title is-3">Back Translation</h2>
         <div class="content has-text-justified">
-          <h3>Mask Language Modeling</h3>
-          <p>Pre-training is essential for transformer models to understand programming languages, and Masked Language Modeling (MLM) is used to mask entire words in code, helping the model learn both syntactic and semantic patterns. This method, which masks full words like "int" in "int index," helps the model predict the missing tokens by understanding the context. Additionally, training the model on a combined dataset of C++ and the target language (CUDA or Fortran) enables cross-lingual learning, allowing the model to generalize and transfer knowledge across programming languages.</p>          
+          <h3>Back Translation</h3>
+          <p>To enhance CodeRosetta's translation quality and grasp of complex code semantics, back translation is employed. This process involves translating code from a source to a target language (e.g., C++ to CUDA) and then performing reverse translation (CUDA to C++) to reconstruct the original source code. The model refines its accuracy by comparing the reconstructed code with the original, iteratively improving its understanding of language differences and code structures, while alternating between language pairs to prevent bias and ensure balanced learning.</p>          
         </div>
       </div>
     </div>
