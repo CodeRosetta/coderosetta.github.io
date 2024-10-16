@@ -9,6 +9,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CodeRosetta: Pushing the Boundaries of Unsupervised Code Translation for Parallel Programming</title>
 
+  <style>
+    #output {
+        border: 1px solid #61dafb;
+        padding: 10px;
+        max-height: 400px;
+        overflow-y: auto; /* Enable scrolling if content overflows */
+        background-color: #1e1e1e; /* Dark background for code area */
+    }
+    .keyword { color: #c678dd; }   /* Purple for keywords */
+    .type { color: #61afef; }      /* Light blue for types */
+    .function { color: #e06c75; }  /* Red for function names */
+    .comment { color: #5c6370; }   /* Gray for comments */
+</style>
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
   <script>
@@ -229,23 +243,23 @@
 
   <div id="output"></div>
   <script>
-      const code = `
-__global__ void pow_gpu(int N, float ALPHA,
-  float *X, int INCX, float *Y, int INCY) {
-  int i = (blockIdx.x + blockIdx.y * gridDim.x) * blockDim.x + threadIdx.x;
-  if (i < N) {
+      const code = `\
+<span class="keyword">__global__</span> <span class="keyword">void</span> pow_gpu(<span class="type">int</span> N, <span class="type">float</span> ALPHA,
+  <span class="type">float</span> *X, <span class="type">int</span> INCX, <span class="type">float</span> *Y, <span class="type">int</span> INCY) {
+  <span class="type">int</span> i = (blockIdx.x + blockIdx.y * gridDim.x) * blockDim.x + threadIdx.x;
+  <span class="keyword">if</span> (i < N) {
       Y[i * INCY] = pow(X[i * INCX], ALPHA);
   }
 }
-`.trim().replace(/^/gm, '    '); // Adding indentation for formatting
+`.trim();
 
       let index = 0;
 
       function typeCode() {
           if (index < code.length) {
-              document.getElementById("output").textContent += code[index++];
+              document.getElementById("output").innerHTML += code[index++];
               // Reduced random delay for typing effect
-              setTimeout(typeCode, Math.random() * 30 + 20);
+              setTimeout(typeCode, Math.random() * 50 + 20); // Faster typing speed
           }
       }
 
