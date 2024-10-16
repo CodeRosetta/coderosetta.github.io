@@ -226,7 +226,7 @@
       </figure><br />
     </div>
   </section>
-
+  
   <pre id="code-container"></pre>
 
   <script>
@@ -238,10 +238,11 @@
       }
   }`;
   
-      const keywords = /(__global__|void|if|return|pow|gridDim|blockDim|threadIdx|blockIdx)/g; // Regex for keywords
-      const types = /(int|float)/g; // Regex for types
-      const functions = /pow/g; // Regex for functions
-      const operators = /(=|\+|\*|<|\(|\))/g; // Regex for operators
+      // Define regex patterns for different syntax types
+      const keywordRegex = /(__global__|void|if|return|pow|gridDim|blockDim|threadIdx|blockIdx)/g;
+      const typeRegex = /(int|float)/g;
+      const functionRegex = /pow/g;
+      const operatorRegex = /(=|\+|\*|<|\(|\))/g;
   
       const container = document.getElementById('code-container');
       let index = 0;
@@ -253,33 +254,33 @@
               // Check for new lines
               if (char === '\n') {
                   container.innerHTML += '<br>'; // Handle new lines
-              } else if (char.match(keywords)) {
-                  // If character matches keywords
-                  let keywordMatch = code.slice(index).match(keywords);
-                  if (keywordMatch) {
-                      container.innerHTML += `<span class="keyword">${keywordMatch[0]}</span>`;
-                      index += keywordMatch[0].length - 1; // Move the index forward by the length of the keyword
+              } else if (char.match(keywordRegex)) {
+                  // Match the whole keyword
+                  let match = code.slice(index).match(keywordRegex);
+                  if (match) {
+                      container.innerHTML += `<span class="keyword">${match[0]}</span>`;
+                      index += match[0].length - 1; // Move index forward by length of matched keyword
                   }
-              } else if (char.match(types)) {
-                  // If character matches types
-                  let typeMatch = code.slice(index).match(types);
-                  if (typeMatch) {
-                      container.innerHTML += `<span class="type">${typeMatch[0]}</span>`;
-                      index += typeMatch[0].length - 1; // Move the index forward by the length of the type
+              } else if (char.match(typeRegex)) {
+                  // Match the whole type
+                  let match = code.slice(index).match(typeRegex);
+                  if (match) {
+                      container.innerHTML += `<span class="type">${match[0]}</span>`;
+                      index += match[0].length - 1; // Move index forward by length of matched type
                   }
-              } else if (char.match(functions)) {
-                  // If character matches functions
-                  let functionMatch = code.slice(index).match(functions);
-                  if (functionMatch) {
-                      container.innerHTML += `<span class="function">${functionMatch[0]}</span>`;
-                      index += functionMatch[0].length - 1; // Move the index forward by the length of the function
+              } else if (char.match(functionRegex)) {
+                  // Match the whole function
+                  let match = code.slice(index).match(functionRegex);
+                  if (match) {
+                      container.innerHTML += `<span class="function">${match[0]}</span>`;
+                      index += match[0].length - 1; // Move index forward by length of matched function
                   }
-              } else if (char.match(operators)) {
-                  // If character matches operators
-                  let operatorMatch = code.slice(index).match(operators);
-                  if (operatorMatch) {
-                      container.innerHTML += `<span class="operator">${operatorMatch[0]}</span>`;
-                      index += operatorMatch[0].length - 1; // Move the index forward by the length of the operator
+              } else if (char.match(operatorRegex)) {
+                  // Match the whole operator
+                  let match = code.slice(index).match(operatorRegex);
+                  if (match) {
+                      container.innerHTML += `<span class="operator">${match[0]}</span>`;
+                      index += match[0].length - 1; // Move index forward by length of matched operator
                   }
               } else {
                   container.innerHTML += char; // Append the character

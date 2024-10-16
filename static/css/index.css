@@ -179,3 +179,7 @@ pre {
 .operator {
   color: #c586c0; /* Color for operators */
 }
+.comment {
+  color: #6a9955; /* Color for comments */
+  font-style: italic; /* Italic for comments */
+}
