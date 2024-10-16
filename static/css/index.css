@@ -155,3 +155,17 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
+
+
+#output {
+  border: 1px solid #61dafb;
+  padding: 10px;
+  max-height: 400px;
+  overflow-y: auto; /* Enable scrolling if content overflows */
+  background-color: #1e1e1e; /* Dark background for code area */
+}
+
+.keyword { color: #c678dd; }   /* Purple for keywords */
+.type { color: #61afef; }      /* Light blue for types */
+.function { color: #e06c75; }  /* Red for function names */
+.comment { color: #5c6370; }   /* Gray for comments */
