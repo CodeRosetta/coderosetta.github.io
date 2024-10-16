@@ -1,4 +1,4 @@
-# Nerfies
+# CodeRosetta
 
 This is the repository that contains source code for the [CodeRosetta website](https://coderosetta.github.io).
 
