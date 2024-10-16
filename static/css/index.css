@@ -158,24 +158,25 @@ body {
 
 
 pre {
-  background-color: #1e1e1e;
-  padding: 10px;
-  border-radius: 5px;
-  overflow: auto;
+  background-color: #f0f0f0; /* Bright background for the code area */
+  color: #333; /* Text color */
+  padding: 10px; /* Padding inside the pre element */
+  border-radius: 5px; /* Rounded corners */
+  overflow: auto; /* Scroll if necessary */
   white-space: pre-wrap; /* Allows line breaks */
   word-wrap: break-word; /* Allows long words to wrap */
 }
 .keyword {
-  color: #569cd6;
-  font-weight: bold;
+  color: #569cd6; /* Color for keywords */
+  font-weight: bold; /* Bold keywords */
 }
 .type {
-  color: #4ec9b0;
+  color: #4ec9b0; /* Color for types */
 }
 .function {
-  color: #dcdc82;
+  color: #dcdc82; /* Color for functions */
 }
 .comment {
-  color: #6a9955;
-  font-style: italic;
+  color: #6a9955; /* Color for comments */
+  font-style: italic; /* Italic for comments */
 }
