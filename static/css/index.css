@@ -157,15 +157,25 @@ body {
 }
 
 
-#output {
-  border: 1px solid #61dafb;
+pre {
+  background-color: #1e1e1e;
   padding: 10px;
-  max-height: 400px;
-  overflow-y: auto; /* Enable scrolling if content overflows */
-  background-color: #1e1e1e; /* Dark background for code area */
+  border-radius: 5px;
+  overflow: auto;
+  white-space: pre-wrap; /* Allows line breaks */
+  word-wrap: break-word; /* Allows long words to wrap */
 }
-
-.keyword { color: #c678dd; }   /* Purple for keywords */
-.type { color: #61afef; }      /* Light blue for types */
-.function { color: #e06c75; }  /* Red for function names */
-.comment { color: #5c6370; }   /* Gray for comments */
+.keyword {
+  color: #569cd6;
+  font-weight: bold;
+}
+.type {
+  color: #4ec9b0;
+}
+.function {
+  color: #dcdc82;
+}
+.comment {
+  color: #6a9955;
+  font-style: italic;
+}
