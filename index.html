@@ -350,53 +350,57 @@
 
     const cppContainer = document.getElementById('cpp-code-container');
     let cppIndex = 0;
-    let cppTypingInterval;
 
     function typeCppCode() {
-      if (cppIndex < cppCodeSnippet.length) {
-        let char = cppCodeSnippet[cppIndex];
+      // Clear the previous typing before starting anew
+      cppContainer.innerHTML = '';
+      cppIndex = 0; // Reset the index
 
-        // Check for new lines
-        if (char === '\n') {
-          cppContainer.innerHTML += '<br>'; // Handle new lines
-        } else if (char.match(cppKeywordRegex)) {
-          let match = cppCodeSnippet.slice(cppIndex).match(cppKeywordRegex);
-          if (match) {
-            cppContainer.innerHTML += `<span style="color: #0000ff;">${match[0]}</span>`;
-            cppIndex += match[0].length - 1;
+      function typeNextChar() {
+        if (cppIndex < cppCodeSnippet.length) {
+          let char = cppCodeSnippet[cppIndex];
+
+          // Check for new lines
+          if (char === '\n') {
+            cppContainer.innerHTML += '<br>'; // Handle new lines
+          } else if (char.match(cppKeywordRegex)) {
+            let match = cppCodeSnippet.slice(cppIndex).match(cppKeywordRegex);
+            if (match) {
+              cppContainer.innerHTML += `<span style="color: #0000ff;">${match[0]}</span>`;
+              cppIndex += match[0].length - 1;
+            }
+          } else if (char.match(cppTypeRegex)) {
+            let match = cppCodeSnippet.slice(cppIndex).match(cppTypeRegex);
+            if (match) {
+              cppContainer.innerHTML += `<span style="color: #ff0000;">${match[0]}</span>`;
+              cppIndex += match[0].length - 1;
+            }
+          } else if (char.match(cppFunctionRegex)) {
+            let match = cppCodeSnippet.slice(cppIndex).match(cppFunctionRegex);
+            if (match) {
+              cppContainer.innerHTML += `<span style="color: #09885a;">${match[0]}</span>`;
+              cppIndex += match[0].length - 1;
+            }
+          } else if (char.match(cppOperatorRegex)) {
+            let match = cppCodeSnippet.slice(cppIndex).match(cppOperatorRegex);
+            if (match) {
+              cppContainer.innerHTML += `<span style="color: #333;">${match[0]}</span>`;
+              cppIndex += match[0].length - 1;
+            }
+          } else {
+            cppContainer.innerHTML += char; // Append the character
           }
-        } else if (char.match(cppTypeRegex)) {
-          let match = cppCodeSnippet.slice(cppIndex).match(cppTypeRegex);
-          if (match) {
-            cppContainer.innerHTML += `<span style="color: #ff0000;">${match[0]}</span>`;
-            cppIndex += match[0].length - 1;
-          }
-        } else if (char.match(cppFunctionRegex)) {
-          let match = cppCodeSnippet.slice(cppIndex).match(cppFunctionRegex);
-          if (match) {
-            cppContainer.innerHTML += `<span style="color: #09885a;">${match[0]}</span>`;
-            cppIndex += match[0].length - 1;
-          }
-        } else if (char.match(cppOperatorRegex)) {
-          let match = cppCodeSnippet.slice(cppIndex).match(cppOperatorRegex);
-          if (match) {
-            cppContainer.innerHTML += `<span style="color: #333;">${match[0]}</span>`;
-            cppIndex += match[0].length - 1;
-          }
+          cppIndex++;
+          setTimeout(typeNextChar, 50); // Adjust speed here
         } else {
-          cppContainer.innerHTML += char; // Append the character
+          // Once done typing, wait for 20 seconds before starting again
+          setTimeout(() => {
+            typeCppCode(); // Restart typing
+          }, 20000); // Wait for 20 seconds
         }
-        cppIndex++;
-        setTimeout(typeCppCode, 50); // Adjust speed here
-      } else {
-        // Once done typing, clear the interval and wait for 10 seconds
-        clearInterval(cppTypingInterval); // Clear interval when done
-        cppIndex = 0; // Reset index for next run
-        setTimeout(() => {
-          cppTypingInterval = setInterval(typeCppCode, 15000); // Restart typing every 15 seconds
-          typeCppCode(); // Start typing immediately
-        }, 10000); // Wait for 10 seconds
       }
+
+      typeNextChar(); // Start typing the characters
     }
 
     // Check if the C++ code is in view
@@ -405,16 +409,14 @@
       const bounding = cppCodeSection.getBoundingClientRect();
       if (bounding.top < window.innerHeight && bounding.bottom > 0) {
         // Start typing if not already started
-        if (!cppTypingInterval) {
-          cppTypingInterval = setInterval(typeCppCode, 15000); // Repeat typing every 15 seconds
-          typeCppCode(); // Start typing immediately
-        }
+        typeCppCode(); // Start typing immediately
         window.removeEventListener('scroll', checkCppScroll); // Remove listener after first trigger
       }
     }
 
     window.addEventListener('scroll', checkCppScroll); // Add scroll listener
   </script>
+
 
 
   <hr>
