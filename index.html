@@ -209,7 +209,7 @@
     const keywordRegex = /(__global__|void|if|return|pow|gridDim|blockDim|threadIdx|blockIdx)/g;
     const typeRegex = /(int|float)/g;
     const functionRegex = /pow/g;
-    const operatorRegex = /(=|\+|\*|<|\(|\))/g;
+    const operatorRegex = /(=|\+|\*|<|\(|\)|\{|\})/g;
   
     const cudaContainer = document.getElementById('cuda-code-container');
     let index = 0;
@@ -255,6 +255,7 @@
   
     typeCode(); // Start the typing effect
   </script>
+  
   
   
 
