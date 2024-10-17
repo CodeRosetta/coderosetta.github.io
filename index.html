@@ -169,16 +169,16 @@
       <!-- Code Snippets Stacked -->
       <div class="content has-text-justified">
         <div class="code-snippets" style="display: block; gap: 20px;">
-          
+  
           <!-- C++ Code -->
           <figure class="code-block" style="overflow-x: auto; margin-bottom: 20px;">
             <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code</figcaption>
-            <pre style="background-color: #1e1e1e; color: #dcdcdc; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace;">
+            <pre style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
               <code id="cpp-code">
-  <span style="color: #569cd6;">void</span> pow_cpu(<span style="color: #b5cea8;">int</span> N, <span style="color: #b5cea8;">float</span> ALPHA, <span style="color: #b5cea8;">float</span>* X, <span style="color: #b5cea8;">int</span> INCX, <span style="color: #b5cea8;">float</span>* Y, <span style="color: #b5cea8;">int</span> INCY) {
-    <span style="color: #b5cea8;">int</span> i;
-    <span style="color: #d4d4d4;">for</span> (i = <span style="color: #dcdcaa;">0</span>; i &lt; N; ++i) {
-      Y[i * INCY] = <span style="color: #dcdcaa;">pow</span>(X[i * INCX], ALPHA);
+  <span style="color: #0000ff;">void</span> pow_cpu(<span style="color: #ff0000;">int</span> N, <span style="color: #ff0000;">float</span> ALPHA, <span style="color: #ff0000;">float</span>* X, <span style="color: #ff0000;">int</span> INCX, <span style="color: #ff0000;">float</span>* Y, <span style="color: #ff0000;">int</span> INCY) {
+    <span style="color: #ff0000;">int</span> i;
+    <span style="color: #0000ff;">for</span> (i = <span style="color: #09885a;">0</span>; i &lt; N; ++i) {
+      Y[i * INCY] = <span style="color: #0000ff;">pow</span>(X[i * INCX], ALPHA);
     }
   }
               </code>
@@ -188,7 +188,7 @@
           <!-- CUDA Code -->
           <figure class="code-block" style="overflow-x: auto;">
             <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">CUDA Code</figcaption>
-            <pre id="cuda-code-container" style="background-color: #1e1e1e; color: #dcdcdc; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace;"></pre>
+            <pre id="cuda-code-container" style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;"></pre>
           </figure>
   
         </div>
@@ -224,25 +224,25 @@
         } else if (char.match(keywordRegex)) {
           let match = cudaCode.slice(index).match(keywordRegex);
           if (match) {
-            cudaContainer.innerHTML += `<span style="color: #569cd6;">${match[0]}</span>`;
+            cudaContainer.innerHTML += `<span style="color: #0000ff;">${match[0]}</span>`;
             index += match[0].length - 1;
           }
         } else if (char.match(typeRegex)) {
           let match = cudaCode.slice(index).match(typeRegex);
           if (match) {
-            cudaContainer.innerHTML += `<span style="color: #b5cea8;">${match[0]}</span>`;
+            cudaContainer.innerHTML += `<span style="color: #ff0000;">${match[0]}</span>`;
             index += match[0].length - 1;
           }
         } else if (char.match(functionRegex)) {
           let match = cudaCode.slice(index).match(functionRegex);
           if (match) {
-            cudaContainer.innerHTML += `<span style="color: #dcdcaa;">${match[0]}</span>`;
+            cudaContainer.innerHTML += `<span style="color: #09885a;">${match[0]}</span>`;
             index += match[0].length - 1;
           }
         } else if (char.match(operatorRegex)) {
           let match = cudaCode.slice(index).match(operatorRegex);
           if (match) {
-            cudaContainer.innerHTML += `<span style="color: #d4d4d4;">${match[0]}</span>`;
+            cudaContainer.innerHTML += `<span style="color: #333;">${match[0]}</span>`;
             index += match[0].length - 1;
           }
         } else {
@@ -255,6 +255,7 @@
   
     typeCode(); // Start the typing effect
   </script>
+  
   
 
 
