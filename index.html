@@ -276,6 +276,7 @@
   
   <hr>
   
+
   <section class="section">
     <div class="container is-max-desktop">
       <!-- Demonstration -->
@@ -287,131 +288,128 @@
           <figure class="code-block" style="overflow-x: auto; margin-bottom: 20px;">
             <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">Fortran Code:</figcaption>
             <pre style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
-              <code id="fortran-code-container"></code>
+              <code id="fortran-code">
+  <span style="color: #0000ff;">subroutine</span> add
+  <span style="color: #0000ff;">use</span> sp_data
+  <span style="color: #0000ff;">implicit none</span>
+  <span style="color: #ff0000;">integer</span> :: i, j, k, m
+  <span style="color: #0000ff;">if</span> (timeron) <span style="color: #0000ff;">call</span> timer_start(t_add)
+  <span style="color: #0000ff;">do</span> k = 1, nz2
+    <span style="color: #0000ff;">do</span> j = 1, ny2
+      <span style="color: #0000ff;">do</span> i = 1, nx2
+        <span style="color: #0000ff;">do</span> m = 1, 5
+          u(m, i, j, k) = u(m, i, j, k) + rhs(m, i, j, k)
+        <span style="color: #0000ff;">end do</span>
+      <span style="color: #0000ff;">end do</span>
+    <span style="color: #0000ff;">end do</span>
+  <span style="color: #0000ff;">if</span> (timeron) <span style="color: #0000ff;">call</span> timer_stop(t_add)
+  <span style="color: #0000ff;">return</span>
+  <span style="color: #0000ff;">end subroutine</span> add
+              </code>
             </pre>
           </figure>
   
           <!-- C++ Code -->
           <figure class="code-block" style="overflow-x: auto;">
             <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code:</figcaption>
-            <pre style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
-              <code id="cpp-code">
-  <span style="color: #0000ff;">void</span> add() {
-    <span style="color: #ff0000;">int</span> i, j, k, m;
-    <span style="color: #ff0000;">int</span> thread_id = omp_get_thread_num();
-    <span style="color: #0000ff;">if</span> (timeron && thread_id == 0) {
-      timer_start(T_ADD);
-    }
-    <span style="color: #0000ff;">#pragma</span> omp for
-    <span style="color: #0000ff;">for</span> (k = 1; k &lt;= nz2; k++) {
-      <span style="color: #0000ff;">for</span> (j = 1; j &lt;= ny2; j++) {
-        <span style="color: #0000ff;">for</span> (i = 1; i &lt;= nx2; i++) {
-          <span style="color: #0000ff;">for</span> (m = 0; m &lt; 5; m++) {
-            u[k][j][i][m] = u[k][j][i][m] + rhs[k][j][i][m];
-          }
-        }
-      }
-    }
-    <span style="color: #0000ff;">if</span> (timeron && thread_id == 0) {
-      timer_stop(T_ADD);
-    }
-  }
-              </code>
-            </pre>
+            <pre id="cpp-code-container" style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;"></pre>
           </figure>
   
         </div>
       </div>
     </div>
   </section>
-
-<script>
-  // Fortran code to be typed out
-  const fortranCode = `subroutine add
-  use sp_data
-  implicit none
-  integer :: i, j, k, m
-  if (timeron) call timer_start(t_add)
-  do k = 1, nz2
-    do j = 1, ny2
-      do i = 1, nx2
-        do m = 1, 5
-          u(m, i, j, k) = u(m, i, j, k) + rhs(m, i, j, k)
-        end do
-      end do
-    end do
-  end do
-  if (timeron) call timer_stop(t_add)
-  return
-  end subroutine add`;
-
-  function typeFortranCode() {
+  
+  <script>
+    const cppCodeSnippet = `void add() {
+      int i, j, k, m;
+      int thread_id = omp_get_thread_num();
+      if (timeron && thread_id == 0) {
+        timer_start(T_ADD);
+      }
+      #pragma omp for
+      for (k = 1; k <= nz2; k++) {
+        for (j = 1; j <= ny2; j++) {
+          for (i = 1; i <= nx2; i++) {
+            for (m = 0; m < 5; m++) {
+              u[k][j][i][m] = u[k][j][i][m] + rhs[k][j][i][m];
+            }
+          }
+        }
+      }
+      if (timeron && thread_id == 0) {
+        timer_stop(T_ADD);
+      }
+    }`;
+  
     // Define regex patterns for different syntax types
-    const keywordRegex = /subroutine|use|implicit|if|do|end do|return/g;
-    const typeRegex = /integer/g;
-    const operatorRegex = /(=|\+|,|&lt;|&gt;|\(|\)|\{|\})/g;
-
-    const fortranContainer = document.getElementById('fortran-code-container');
-    let index = 0;
-    let typingInterval;
-
-    function type() {
-      if (index < fortranCode.length) {
-        let char = fortranCode[index];
-
+    const cppKeywordRegex = /(void|if|return|for|do|#pragma|omp|get_thread_num|timer_start|timer_stop)/g;
+    const cppTypeRegex = /(int|float)/g;
+    const cppFunctionRegex = /(timer_start|timer_stop)/g;
+    const cppOperatorRegex = /(=|\+|<=|<|{|\})/g;
+  
+    const cppContainer = document.getElementById('cpp-code-container');
+    let cppIndex = 0;
+    let cppTypingInterval;
+  
+    function typeCppCode() {
+      if (cppIndex < cppCodeSnippet.length) {
+        let char = cppCodeSnippet[cppIndex];
+  
         // Check for new lines
         if (char === '\n') {
-          fortranContainer.innerHTML += '<br>'; // Handle new lines
-        } else if (char.match(keywordRegex)) {
-          let match = fortranCode.slice(index).match(keywordRegex);
+          cppContainer.innerHTML += '<br>'; // Handle new lines
+        } else if (char.match(cppKeywordRegex)) {
+          let match = cppCodeSnippet.slice(cppIndex).match(cppKeywordRegex);
           if (match) {
-            fortranContainer.innerHTML += `<span style="color: #0000ff;">${match[0]}</span>`;
-            index += match[0].length - 1;
+            cppContainer.innerHTML += `<span style="color: #0000ff;">${match[0]}</span>`;
+            cppIndex += match[0].length - 1;
           }
-        } else if (char.match(typeRegex)) {
-          let match = fortranCode.slice(index).match(typeRegex);
+        } else if (char.match(cppTypeRegex)) {
+          let match = cppCodeSnippet.slice(cppIndex).match(cppTypeRegex);
           if (match) {
-            fortranContainer.innerHTML += `<span style="color: #ff0000;">${match[0]}</span>`;
-            index += match[0].length - 1;
+            cppContainer.innerHTML += `<span style="color: #ff0000;">${match[0]}</span>`;
+            cppIndex += match[0].length - 1;
           }
-        } else if (char.match(operatorRegex)) {
-          let match = fortranCode.slice(index).match(operatorRegex);
+        } else if (char.match(cppFunctionRegex)) {
+          let match = cppCodeSnippet.slice(cppIndex).match(cppFunctionRegex);
           if (match) {
-            fortranContainer.innerHTML += `<span style="color: #333;">${match[0]}</span>`;
-            index += match[0].length - 1;
-          } else {
-            fortranContainer.innerHTML += char; // Append the character
+            cppContainer.innerHTML += `<span style="color: #09885a;">${match[0]}</span>`;
+            cppIndex += match[0].length - 1;
+          }
+        } else if (char.match(cppOperatorRegex)) {
+          let match = cppCodeSnippet.slice(cppIndex).match(cppOperatorRegex);
+          if (match) {
+            cppContainer.innerHTML += `<span style="color: #333;">${match[0]}</span>`;
+            cppIndex += match[0].length - 1;
           }
         } else {
-          fortranContainer.innerHTML += char; // Append the character
+          cppContainer.innerHTML += char; // Append the character
         }
-        index++;
-        setTimeout(type, 50); // Adjust speed here
+        cppIndex++;
+        setTimeout(typeCppCode, 50); // Adjust speed here
       } else {
-        clearInterval(typingInterval); // Clear interval when done
+        clearInterval(cppTypingInterval); // Clear interval when done
       }
     }
-
-    // Check if the Fortran code is in view
-    function checkScroll() {
-      const fortranCodeSection = document.getElementById('fortran-code-container').parentElement;
-      const bounding = fortranCodeSection.getBoundingClientRect();
+  
+    // Check if the C++ code is in view
+    function checkCppScroll() {
+      const cppCodeSection = document.getElementById('cpp-code-container').parentElement;
+      const bounding = cppCodeSection.getBoundingClientRect();
       if (bounding.top < window.innerHeight && bounding.bottom > 0) {
         // Start typing if not already started
-        if (!typingInterval) {
-          typingInterval = setInterval(type, 15000); // Repeat typing every 15 seconds
-          type(); // Start typing immediately
+        if (!cppTypingInterval) {
+          cppTypingInterval = setInterval(typeCppCode, 15000); // Repeat typing every 15 seconds
+          typeCppCode(); // Start typing immediately
         }
-        window.removeEventListener('scroll', checkScroll); // Remove listener after first trigger
+        window.removeEventListener('scroll', checkCppScroll); // Remove listener after first trigger
       }
     }
-
-    window.addEventListener('scroll', checkScroll); // Add scroll listener
-  }
-
-  // Start the typing animation for Fortran code
-  typeFortranCode(); 
-</script>
+  
+    window.addEventListener('scroll', checkCppScroll); // Add scroll listener
+  </script>
+  
 
 
 
