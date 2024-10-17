@@ -162,7 +162,7 @@
     </div>
   </section>
 
-
+<hr>
   <section class="section">
     <div class="container is-max-desktop">
       <!-- Demonstration -->
@@ -172,7 +172,7 @@
   
           <!-- C++ Code -->
           <figure class="code-block" style="overflow-x: auto; margin-bottom: 20px;">
-            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code</figcaption>
+            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code:</figcaption>
             <pre style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
               <code id="cpp-code">
   <span style="color: #0000ff;">void</span> pow_cpu(<span style="color: #ff0000;">int</span> N, <span style="color: #ff0000;">float</span> ALPHA, <span style="color: #ff0000;">float</span>* X, <span style="color: #ff0000;">int</span> INCX, <span style="color: #ff0000;">float</span>* Y, <span style="color: #ff0000;">int</span> INCY) {
@@ -187,7 +187,7 @@
   
           <!-- CUDA Code -->
           <figure class="code-block" style="overflow-x: auto;">
-            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">CUDA Code</figcaption>
+            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">CUDA Code:</figcaption>
             <pre id="cuda-code-container" style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;"></pre>
           </figure>
   
@@ -256,7 +256,76 @@
     typeCode(); // Start the typing effect
   </script>
   
+  <hr>
   
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Demonstration -->
+      <!-- Code Snippets Stacked -->
+      <div class="content has-text-justified">
+        <div class="code-snippets" style="display: block; gap: 20px;">
+  
+          <!-- Fortran Code -->
+          <figure class="code-block" style="overflow-x: auto; margin-bottom: 20px;">
+            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">Fortran Code:</figcaption>
+            <pre style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
+              <code id="fortran-code">
+  <span style="color: #0000ff;">subroutine</span> add
+  <span style="color: #0000ff;">use</span> sp_data
+  <span style="color: #0000ff;">implicit none</span>
+  <span style="color: #ff0000;">integer</span> :: i, j, k, m
+  <span style="color: #0000ff;">if</span> (timeron) <span style="color: #0000ff;">call</span> timer_start(t_add)
+  <span style="color: #0000ff;">do</span> k = 1, nz2
+    <span style="color: #0000ff;">do</span> j = 1, ny2
+      <span style="color: #0000ff;">do</span> i = 1, nx2
+        <span style="color: #0000ff;">do</span> m = 1, 5
+          u(m, i, j, k) = u(m, i, j, k) + rhs(m, i, j, k)
+        <span style="color: #0000ff;">end do</span>
+      <span style="color: #0000ff;">end do</span>
+    <span style="color: #0000ff;">end do</span>
+  <span style="color: #0000ff;">end do</span>
+  <span style="color: #0000ff;">if</span> (timeron) <span style="color: #0000ff;">call</span> timer_stop(t_add)
+  <span style="color: #0000ff;">return</span>
+  <span style="color: #0000ff;">end subroutine</span> add
+              </code>
+            </pre>
+          </figure>
+  
+          <!-- C++ Code -->
+          <figure class="code-block" style="overflow-x: auto;">
+            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code:</figcaption>
+            <pre style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
+              <code id="cpp-code">
+  <span style="color: #0000ff;">void</span> add() {
+    <span style="color: #ff0000;">int</span> i, j, k, m;
+    <span style="color: #ff0000;">int</span> thread_id = omp_get_thread_num();
+    <span style="color: #0000ff;">if</span> (timeron && thread_id == 0) {
+      timer_start(T_ADD);
+    }
+    <span style="color: #0000ff;">#pragma</span> omp for
+    <span style="color: #0000ff;">for</span> (k = 1; k &lt;= nz2; k++) {
+      <span style="color: #0000ff;">for</span> (j = 1; j &lt;= ny2; j++) {
+        <span style="color: #0000ff;">for</span> (i = 1; i &lt;= nx2; i++) {
+          <span style="color: #0000ff;">for</span> (m = 0; m &lt; 5; m++) {
+            u[k][j][i][m] = u[k][j][i][m] + rhs[k][j][i][m];
+          }
+        }
+      }
+    }
+    <span style="color: #0000ff;">if</span> (timeron && thread_id == 0) {
+      timer_stop(T_ADD);
+    }
+  }
+              </code>
+            </pre>
+          </figure>
+  
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
   
 
 
