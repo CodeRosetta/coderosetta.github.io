@@ -162,18 +162,19 @@
     </div>
   </section>
 
-<hr>
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Demonstration -->
-    <!-- Code Snippets Stacked -->
-    <div class="content has-text-justified">
-      <div class="code-snippets" style="display: block; gap: 20px;">
+  <hr>
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Demonstration -->
+      <!-- Code Snippets Stacked -->
+      <div class="content has-text-justified">
+        <div class="code-snippets" style="display: block; gap: 20px;">
 
-        <!-- C++ Code -->
-        <figure class="code-block" style="overflow-x: auto; margin-bottom: 20px;">
-          <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code:</figcaption>
-          <pre style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
+          <!-- C++ Code -->
+          <figure class="code-block" style="overflow-x: auto; margin-bottom: 20px;">
+            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code:</figcaption>
+            <pre
+              style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
             <code id="cpp-code">
 <span style="color: #0000ff;">void</span> pow_cpu(<span style="color: #ff0000;">int</span> N, <span style="color: #ff0000;">float</span> ALPHA, <span style="color: #ff0000;">float</span>* X, <span style="color: #ff0000;">int</span> INCX, <span style="color: #ff0000;">float</span>* Y, <span style="color: #ff0000;">int</span> INCY) {
   <span style="color: #ff0000;">int</span> i;
@@ -183,21 +184,22 @@
 }
             </code>
           </pre>
-        </figure>
+          </figure>
 
-        <!-- CUDA Code -->
-        <figure class="code-block" style="overflow-x: auto;">
-          <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">CUDA Code:</figcaption>
-          <pre id="cuda-code-container" style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;"></pre>
-        </figure>
+          <!-- CUDA Code -->
+          <figure class="code-block" style="overflow-x: auto;">
+            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">CUDA Code:</figcaption>
+            <pre id="cuda-code-container"
+              style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;"></pre>
+          </figure>
 
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<script>
-  const cudaCode = `__global__ void pow_gpu(int N, float ALPHA,
+  <script>
+    const cudaCode = `__global__ void pow_gpu(int N, float ALPHA,
   float *X, int INCX, float *Y, int INCY) {
     int i = (blockIdx.x + blockIdx.y * gridDim.x) * blockDim.x + threadIdx.x;
     if (i < N) {
@@ -205,89 +207,86 @@
     }
   };`;
 
-  // Define regex patterns for different syntax types
-  const keywordRegex = /(__global__|void|if|return|pow|gridDim|blockDim|threadIdx|blockIdx)/g;
-  const typeRegex = /(int|float)/g;
-  const functionRegex = /pow/g;
-  const operatorRegex = /(=|\+|\*|<|\(|\)|\{|\})/g;
+    // Define regex patterns for different syntax types
+    const keywordRegex = /(__global__|void|if|return|pow|gridDim|blockDim|threadIdx|blockIdx)/g;
+    const typeRegex = /(int|float)/g;
+    const functionRegex = /pow/g;
+    const operatorRegex = /(=|\+|\*|<|\(|\)|\{|\})/g;
 
-  const cudaContainer = document.getElementById('cuda-code-container');
-  let index = 0;
-  let typingInterval;
+    const cudaContainer = document.getElementById('cuda-code-container');
+    let index = 0;
+    let typingInterval;
 
-  function typeCode() {
-    if (index < cudaCode.length) {
-      let char = cudaCode[index];
+    function typeCode() {
+      if (index < cudaCode.length) {
+        let char = cudaCode[index];
 
-      // Check for new lines
-      if (char === '\n') {
-        cudaContainer.innerHTML += '<br>'; // Handle new lines
-      } else if (char.match(keywordRegex)) {
-        let match = cudaCode.slice(index).match(keywordRegex);
-        if (match) {
-          cudaContainer.innerHTML += `<span style="color: #0000ff;">${match[0]}</span>`;
-          index += match[0].length - 1;
+        // Check for new lines
+        if (char === '\n') {
+          cudaContainer.innerHTML += '<br>'; // Handle new lines
+        } else if (char.match(keywordRegex)) {
+          let match = cudaCode.slice(index).match(keywordRegex);
+          if (match) {
+            cudaContainer.innerHTML += `<span style="color: #0000ff;">${match[0]}</span>`;
+            index += match[0].length - 1;
+          }
+        } else if (char.match(typeRegex)) {
+          let match = cudaCode.slice(index).match(typeRegex);
+          if (match) {
+            cudaContainer.innerHTML += `<span style="color: #ff0000;">${match[0]}</span>`;
+            index += match[0].length - 1;
+          }
+        } else if (char.match(functionRegex)) {
+          let match = cudaCode.slice(index).match(functionRegex);
+          if (match) {
+            cudaContainer.innerHTML += `<span style="color: #09885a;">${match[0]}</span>`;
+            index += match[0].length - 1;
+          }
+        } else if (char.match(operatorRegex)) {
+          let match = cudaCode.slice(index).match(operatorRegex);
+          if (match) {
+            cudaContainer.innerHTML += `<span style="color: #333;">${match[0]}</span>`;
+            index += match[0].length - 1;
+          }
+        } else {
+          cudaContainer.innerHTML += char; // Append the character
         }
-      } else if (char.match(typeRegex)) {
-        let match = cudaCode.slice(index).match(typeRegex);
-        if (match) {
-          cudaContainer.innerHTML += `<span style="color: #ff0000;">${match[0]}</span>`;
-          index += match[0].length - 1;
-        }
-      } else if (char.match(functionRegex)) {
-        let match = cudaCode.slice(index).match(functionRegex);
-        if (match) {
-          cudaContainer.innerHTML += `<span style="color: #09885a;">${match[0]}</span>`;
-          index += match[0].length - 1;
-        }
-      } else if (char.match(operatorRegex)) {
-        let match = cudaCode.slice(index).match(operatorRegex);
-        if (match) {
-          cudaContainer.innerHTML += `<span style="color: #333;">${match[0]}</span>`;
-          index += match[0].length - 1;
-        }
+        index++;
+        setTimeout(typeCode, 50); // Adjust speed here
       } else {
-        cudaContainer.innerHTML += char; // Append the character
+        clearInterval(typingInterval); // Clear interval when done
       }
-      index++;
-      setTimeout(typeCode, 50); // Adjust speed here
-    } else {
-      clearInterval(typingInterval); // Clear interval when done
     }
-  }
 
-  // Check if the CUDA code is in view
-  function checkScroll() {
-    const cudaCodeSection = document.getElementById('cuda-code-container').parentElement;
-    const bounding = cudaCodeSection.getBoundingClientRect();
-    if (bounding.top < window.innerHeight && bounding.bottom > 0) {
-      // Start typing if not already started
-      if (!typingInterval) {
-        typingInterval = setInterval(typeCode, 15000); // Repeat typing every 15 seconds
-        typeCode(); // Start typing immediately
+    // Check if the CUDA code is in view
+    function checkScroll() {
+      const cudaCodeSection = document.getElementById('cuda-code-container').parentElement;
+      const bounding = cudaCodeSection.getBoundingClientRect();
+      if (bounding.top < window.innerHeight && bounding.bottom > 0) {
+        // Start typing if not already started
+        if (!typingInterval) {
+          typingInterval = setInterval(typeCode, 15000); // Repeat typing every 15 seconds
+          typeCode(); // Start typing immediately
+        }
+        window.removeEventListener('scroll', checkScroll); // Remove listener after first trigger
       }
-      window.removeEventListener('scroll', checkScroll); // Remove listener after first trigger
     }
-  }
 
-  window.addEventListener('scroll', checkScroll); // Add scroll listener
-</script>
-
-  
+    window.addEventListener('scroll', checkScroll); // Add scroll listener
+  </script>
   <hr>
-  
-
   <section class="section">
     <div class="container is-max-desktop">
       <!-- Demonstration -->
       <!-- Code Snippets Stacked -->
       <div class="content has-text-justified">
         <div class="code-snippets" style="display: block; gap: 20px;">
-  
+
           <!-- Fortran Code -->
           <figure class="code-block" style="overflow-x: auto; margin-bottom: 20px;">
             <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">Fortran Code:</figcaption>
-            <pre style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
+            <pre
+              style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
               <code id="fortran-code">
   <span style="color: #0000ff;">subroutine</span> add
   <span style="color: #0000ff;">use</span> sp_data
@@ -308,18 +307,19 @@
               </code>
             </pre>
           </figure>
-  
+
           <!-- C++ Code -->
           <figure class="code-block" style="overflow-x: auto;">
             <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code:</figcaption>
-            <pre id="cpp-code-container" style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;"></pre>
+            <pre id="cpp-code-container"
+              style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;"></pre>
           </figure>
-  
+
         </div>
       </div>
     </div>
   </section>
-  
+
   <script>
     const cppCodeSnippet = `void add() {
       int i, j, k, m;
@@ -341,21 +341,21 @@
         timer_stop(T_ADD);
       }
     }`;
-  
+
     // Define regex patterns for different syntax types
     const cppKeywordRegex = /(void|if|return|for|do|#pragma|omp|get_thread_num|timer_start|timer_stop)/g;
     const cppTypeRegex = /(int|float)/g;
     const cppFunctionRegex = /(timer_start|timer_stop)/g;
     const cppOperatorRegex = /(=|\+|<=|<|{|\})/g;
-  
+
     const cppContainer = document.getElementById('cpp-code-container');
     let cppIndex = 0;
     let cppTypingInterval;
-  
+
     function typeCppCode() {
       if (cppIndex < cppCodeSnippet.length) {
         let char = cppCodeSnippet[cppIndex];
-  
+
         // Check for new lines
         if (char === '\n') {
           cppContainer.innerHTML += '<br>'; // Handle new lines
@@ -392,7 +392,7 @@
         clearInterval(cppTypingInterval); // Clear interval when done
       }
     }
-  
+
     // Check if the C++ code is in view
     function checkCppScroll() {
       const cppCodeSection = document.getElementById('cpp-code-container').parentElement;
@@ -406,17 +406,11 @@
         window.removeEventListener('scroll', checkCppScroll); // Remove listener after first trigger
       }
     }
-  
+
     window.addEventListener('scroll', checkCppScroll); // Add scroll listener
   </script>
-  
-
-
 
   <hr>
-  
-
-
 
   <section class="section">
     <div class="container is-max-desktop">
@@ -519,8 +513,8 @@
       </div>
     </div>
   </footer>
-  
-  
+
+
 
 </body>
 
