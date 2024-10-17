@@ -166,42 +166,44 @@
   <section class="section">
     <div class="container is-max-desktop">
       <!-- Demonstration -->
-          <!-- Code Snippets Side by Side -->
-          <div class="content has-text-justified">
-            <div class="code-snippets" style="display: flex; justify-content: space-between; gap: 20px;">
-  
-              <!-- C++ Code -->
-              <figure class="code-block" style="flex: 1; overflow-x: auto;">
-                <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code</figcaption>
-                <pre><code id="cpp-code">
-  void pow_cpu(int N, float ALPHA, float* X, int INCX, float* Y, int INCY) {
-    int i;
-    for (i = 0; i < N; ++i) {
-      Y[i * INCY] = pow(X[i * INCX], ALPHA);
+      <!-- Code Snippets Stacked -->
+      <div class="content has-text-justified">
+        <div class="code-snippets" style="display: block; gap: 20px;">
+          
+          <!-- C++ Code -->
+          <figure class="code-block" style="overflow-x: auto; margin-bottom: 20px;">
+            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code</figcaption>
+            <pre style="background-color: #1e1e1e; color: #dcdcdc; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace;">
+              <code id="cpp-code">
+  <span style="color: #569cd6;">void</span> pow_cpu(<span style="color: #b5cea8;">int</span> N, <span style="color: #b5cea8;">float</span> ALPHA, <span style="color: #b5cea8;">float</span>* X, <span style="color: #b5cea8;">int</span> INCX, <span style="color: #b5cea8;">float</span>* Y, <span style="color: #b5cea8;">int</span> INCY) {
+    <span style="color: #b5cea8;">int</span> i;
+    <span style="color: #d4d4d4;">for</span> (i = <span style="color: #dcdcaa;">0</span>; i &lt; N; ++i) {
+      Y[i * INCY] = <span style="color: #dcdcaa;">pow</span>(X[i * INCX], ALPHA);
     }
   }
-                </code></pre>
-              </figure>
+              </code>
+            </pre>
+          </figure>
   
-              <!-- CUDA Code -->
-              <figure class="code-block" style="flex: 1; overflow-x: auto;">
-                <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">CUDA Code</figcaption>
-                <pre id="cuda-code-container"></pre>
-              </figure>
+          <!-- CUDA Code -->
+          <figure class="code-block" style="overflow-x: auto;">
+            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">CUDA Code</figcaption>
+            <pre id="cuda-code-container" style="background-color: #1e1e1e; color: #dcdcdc; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace;"></pre>
+          </figure>
   
-            </div>
-          </div>
+        </div>
+      </div>
     </div>
   </section>
   
   <script>
     const cudaCode = `__global__ void pow_gpu(int N, float ALPHA,
   float *X, int INCX, float *Y, int INCY) {
-      int i = (blockIdx.x + blockIdx.y * gridDim.x) * blockDim.x + threadIdx.x;
-      if (i < N) {
-          Y[i * INCY] = pow(X[i * INCX], ALPHA);
-      }
-  }`;
+    int i = (blockIdx.x + blockIdx.y * gridDim.x) * blockDim.x + threadIdx.x;
+    if (i < N) {
+      Y[i * INCY] = pow(X[i * INCX], ALPHA);
+    }
+  };`;
   
     // Define regex patterns for different syntax types
     const keywordRegex = /(__global__|void|if|return|pow|gridDim|blockDim|threadIdx|blockIdx)/g;
@@ -220,32 +222,28 @@
         if (char === '\n') {
           cudaContainer.innerHTML += '<br>'; // Handle new lines
         } else if (char.match(keywordRegex)) {
-          // Match the whole keyword
           let match = cudaCode.slice(index).match(keywordRegex);
           if (match) {
-            cudaContainer.innerHTML += `<span class="keyword">${match[0]}</span>`;
-            index += match[0].length - 1; // Move index forward by length of matched keyword
+            cudaContainer.innerHTML += `<span style="color: #569cd6;">${match[0]}</span>`;
+            index += match[0].length - 1;
           }
         } else if (char.match(typeRegex)) {
-          // Match the whole type
           let match = cudaCode.slice(index).match(typeRegex);
           if (match) {
-            cudaContainer.innerHTML += `<span class="type">${match[0]}</span>`;
-            index += match[0].length - 1; // Move index forward by length of matched type
+            cudaContainer.innerHTML += `<span style="color: #b5cea8;">${match[0]}</span>`;
+            index += match[0].length - 1;
           }
         } else if (char.match(functionRegex)) {
-          // Match the whole function
           let match = cudaCode.slice(index).match(functionRegex);
           if (match) {
-            cudaContainer.innerHTML += `<span class="function">${match[0]}</span>`;
-            index += match[0].length - 1; // Move index forward by length of matched function
+            cudaContainer.innerHTML += `<span style="color: #dcdcaa;">${match[0]}</span>`;
+            index += match[0].length - 1;
           }
         } else if (char.match(operatorRegex)) {
-          // Match the whole operator
           let match = cudaCode.slice(index).match(operatorRegex);
           if (match) {
-            cudaContainer.innerHTML += `<span class="operator">${match[0]}</span>`;
-            index += match[0].length - 1; // Move index forward by length of matched operator
+            cudaContainer.innerHTML += `<span style="color: #d4d4d4;">${match[0]}</span>`;
+            index += match[0].length - 1;
           }
         } else {
           cudaContainer.innerHTML += char; // Append the character
@@ -257,6 +255,7 @@
   
     typeCode(); // Start the typing effect
   </script>
+  
 
 
 
