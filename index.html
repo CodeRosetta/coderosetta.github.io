@@ -389,7 +389,13 @@
         cppIndex++;
         setTimeout(typeCppCode, 50); // Adjust speed here
       } else {
+        // Once done typing, clear the interval and wait for 10 seconds
         clearInterval(cppTypingInterval); // Clear interval when done
+        cppIndex = 0; // Reset index for next run
+        setTimeout(() => {
+          cppTypingInterval = setInterval(typeCppCode, 15000); // Restart typing every 15 seconds
+          typeCppCode(); // Start typing immediately
+        }, 10000); // Wait for 10 seconds
       }
     }
 
@@ -409,6 +415,7 @@
 
     window.addEventListener('scroll', checkCppScroll); // Add scroll listener
   </script>
+
 
   <hr>
 
