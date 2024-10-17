@@ -166,29 +166,35 @@
   <section class="section">
     <div class="container is-max-desktop">
       <!-- Demonstration -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
           <!-- Code Snippets Side by Side -->
           <div class="content has-text-justified">
             <div class="code-snippets" style="display: flex; justify-content: space-between; gap: 20px;">
   
               <!-- C++ Code -->
-              <div class="code-block" style="flex: 1; overflow-x: auto;">
+              <figure class="code-block" style="flex: 1; overflow-x: auto;">
+                <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code</figcaption>
                 <pre><code id="cpp-code">
-                  void pow_cpu(int N, float ALPHA, float* X, int INCX, float* Y, int INCY) {
-                    int i;
-                    for (i = 0; i < N; ++i) {
-                      Y[i * INCY] = pow(X[i * INCX], ALPHA);
-                    }
-                  }
+  void pow_cpu(int N, float ALPHA, float* X, int INCX, float* Y, int INCY) {
+    int i;
+    for (i = 0; i < N; ++i) {
+      Y[i * INCY] = pow(X[i * INCX], ALPHA);
+    }
+  }
                 </code></pre>
-              </div>
+              </figure>
   
               <!-- CUDA Code -->
-              <div class="code-block" style="flex: 1; overflow-x: auto;">
+              <figure class="code-block" style="flex: 1; overflow-x: auto;">
+                <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">CUDA Code</figcaption>
                 <pre id="cuda-code-container"></pre>
-              </div>
+              </figure>
   
             </div>
           </div>
+        </div>
+      </div>
     </div>
   </section>
   
