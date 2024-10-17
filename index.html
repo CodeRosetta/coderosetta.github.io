@@ -166,37 +166,34 @@
   <section class="section">
     <div class="container is-max-desktop">
       <!-- Demonstration -->
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
           <!-- Code Snippets Side by Side -->
           <div class="content has-text-justified">
             <div class="code-snippets" style="display: flex; justify-content: space-between; gap: 20px;">
   
               <!-- C++ Code -->
               <div class="code-block" style="flex: 1; overflow-x: auto;">
-                <textarea style="width: 100%; height: 100%; resize: none;">
+                <pre><code id="cpp-code">
                   void pow_cpu(int N, float ALPHA, float* X, int INCX, float* Y, int INCY) {
                     int i;
-                    for(i = 0; i < N; ++i) {
+                    for (i = 0; i < N; ++i) {
                       Y[i * INCY] = pow(X[i * INCX], ALPHA);
                     }
                   }
-                </textarea>
+                </code></pre>
               </div>
   
               <!-- CUDA Code -->
               <div class="code-block" style="flex: 1; overflow-x: auto;">
-                <pre id="code-container"></pre>
+                <pre id="cuda-code-container"></pre>
               </div>
+  
             </div>
           </div>
-        </div>
-      </div>
     </div>
   </section>
   
   <script>
-    const code = `__global__ void pow_gpu(int N, float ALPHA,
+    const cudaCode = `__global__ void pow_gpu(int N, float ALPHA,
   float *X, int INCX, float *Y, int INCY) {
       int i = (blockIdx.x + blockIdx.y * gridDim.x) * blockDim.x + threadIdx.x;
       if (i < N) {
@@ -210,46 +207,46 @@
     const functionRegex = /pow/g;
     const operatorRegex = /(=|\+|\*|<|\(|\))/g;
   
-    const container = document.getElementById('code-container');
+    const cudaContainer = document.getElementById('cuda-code-container');
     let index = 0;
   
     function typeCode() {
-      if (index < code.length) {
-        let char = code[index];
+      if (index < cudaCode.length) {
+        let char = cudaCode[index];
   
         // Check for new lines
         if (char === '\n') {
-          container.innerHTML += '<br>'; // Handle new lines
+          cudaContainer.innerHTML += '<br>'; // Handle new lines
         } else if (char.match(keywordRegex)) {
           // Match the whole keyword
-          let match = code.slice(index).match(keywordRegex);
+          let match = cudaCode.slice(index).match(keywordRegex);
           if (match) {
-            container.innerHTML += `<span class="keyword">${match[0]}</span>`;
+            cudaContainer.innerHTML += `<span class="keyword">${match[0]}</span>`;
             index += match[0].length - 1; // Move index forward by length of matched keyword
           }
         } else if (char.match(typeRegex)) {
           // Match the whole type
-          let match = code.slice(index).match(typeRegex);
+          let match = cudaCode.slice(index).match(typeRegex);
           if (match) {
-            container.innerHTML += `<span class="type">${match[0]}</span>`;
+            cudaContainer.innerHTML += `<span class="type">${match[0]}</span>`;
             index += match[0].length - 1; // Move index forward by length of matched type
           }
         } else if (char.match(functionRegex)) {
           // Match the whole function
-          let match = code.slice(index).match(functionRegex);
+          let match = cudaCode.slice(index).match(functionRegex);
           if (match) {
-            container.innerHTML += `<span class="function">${match[0]}</span>`;
+            cudaContainer.innerHTML += `<span class="function">${match[0]}</span>`;
             index += match[0].length - 1; // Move index forward by length of matched function
           }
         } else if (char.match(operatorRegex)) {
           // Match the whole operator
-          let match = code.slice(index).match(operatorRegex);
+          let match = cudaCode.slice(index).match(operatorRegex);
           if (match) {
-            container.innerHTML += `<span class="operator">${match[0]}</span>`;
+            cudaContainer.innerHTML += `<span class="operator">${match[0]}</span>`;
             index += match[0].length - 1; // Move index forward by length of matched operator
           }
         } else {
-          container.innerHTML += char; // Append the character
+          cudaContainer.innerHTML += char; // Append the character
         }
         index++;
         setTimeout(typeCode, 50); // Adjust speed here
