@@ -260,24 +260,42 @@
   
   <section class="section">
     <div class="container is-max-desktop">
+      <!-- Demonstration -->
+      <!-- Code Snippets Stacked -->
       <div class="content has-text-justified">
         <div class="code-snippets" style="display: block; gap: 20px;">
+  
+          <!-- Fortran Code -->
+          <figure class="code-block" style="overflow-x: auto; margin-bottom: 20px;">
+            <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">Fortran Code:</figcaption>
+            <pre style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
+              <code id="fortran-code">
+  <span style="color: #0000ff;">subroutine</span> add
+  <span style="color: #0000ff;">use</span> sp_data
+  <span style="color: #0000ff;">implicit none</span>
+  <span style="color: #ff0000;">integer</span> :: i, j, k, m
+  <span style="color: #0000ff;">if</span> (timeron) <span style="color: #0000ff;">call</span> timer_start(t_add)
+  <span style="color: #0000ff;">do</span> k = 1, nz2
+    <span style="color: #0000ff;">do</span> j = 1, ny2
+      <span style="color: #0000ff;">do</span> i = 1, nx2
+        <span style="color: #0000ff;">do</span> m = 1, 5
+          u(m, i, j, k) = u(m, i, j, k) + rhs(m, i, j, k)
+        <span style="color: #0000ff;">end do</span>
+      <span style="color: #0000ff;">end do</span>
+    <span style="color: #0000ff;">end do</span>
+  <span style="color: #0000ff;">end do</span>
+  <span style="color: #0000ff;">if</span> (timeron) <span style="color: #0000ff;">call</span> timer_stop(t_add)
+  <span style="color: #0000ff;">return</span>
+  <span style="color: #0000ff;">end subroutine</span> add
+              </code>
+            </pre>
+          </figure>
   
           <!-- C++ Code -->
           <figure class="code-block" style="overflow-x: auto;">
             <figcaption style="text-align: left; font-weight: bold; margin-bottom: 5px;">C++ Code:</figcaption>
             <pre style="background-color: #f5f5f5; color: #333; padding: 10px; border-radius: 5px; font-family: Consolas, 'Courier New', monospace; text-align: left; white-space: pre-wrap;">
-              <code id="cpp-code"></code>
-            </pre>
-          </figure>
-  
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <script>
-    const cppCode = `
+              <code id="cpp-code">
   <span style="color: #0000ff;">void</span> add() {
     <span style="color: #ff0000;">int</span> i, j, k, m;
     <span style="color: #ff0000;">int</span> thread_id = omp_get_thread_num();
@@ -298,24 +316,14 @@
       timer_stop(T_ADD);
     }
   }
-    `;
+              </code>
+            </pre>
+          </figure>
   
-    let index = 0;
-    const speed = 50; // Typing speed in milliseconds
-    const codeElement = document.getElementById("cpp-code");
-  
-    function typeCode() {
-      if (index < cppCode.length) {
-        codeElement.innerHTML += cppCode.charAt(index);
-        index++;
-        setTimeout(typeCode, speed);
-      }
-    }
-  
-    // Start the typing animation when the page loads
-    window.onload = typeCode;
-  </script>
-  
+        </div>
+      </div>
+    </div>
+  </section>
 
   <hr>
   
